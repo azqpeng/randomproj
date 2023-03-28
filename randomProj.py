@@ -44,8 +44,13 @@ class randomProj(nn.Module()):
     
     # Do I just implement this manually?
     def grad_large_to_small(self, grad):
+        out_grad = torch.zeros(self.subSpace, dtype = torch.float)
         grad = grad.reshape(np.prod(self.W_shape), 1)
         for k in range(self.subSpace):
             for i in range(self.W_shape[0]):
                 for j in range(self.W_shape[1]):
+                    out_grad[k] +=  self.IDX[i * self.W_shape[1] + j, k]*grad[i * self.W_shape[1] + j]
+        return out_grad
+    
+
 
